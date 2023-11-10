@@ -56,9 +56,16 @@ export const WithdrawCard = React.memo(function WithdrawCard({
     setModalState(true);
   }, [amount, address, t]);
 
+  const sweepAll = useCallback(() => {
+    setAmount(balanceMsat / 1000);
+    createWithdrawal();
+  }, [balanceMsat, createWithdrawal]);
+
   const startWithdrawal = useCallback(() => {
+    const withdrawalAmount = amount === balanceMsat / 1000 ? 'all' : amount;
+
     gateway
-      .requestWithdrawal(federationId, amount, address)
+      .requestWithdrawal(federationId, withdrawalAmount, address)
       .then((txId) => {
         alert(`${t('withdraw-card.your-transaction')} ${txId}`);
         setAddress('');
@@ -69,7 +76,7 @@ export const WithdrawCard = React.memo(function WithdrawCard({
         console.error(error);
         setError(`${t('withdraw-card.error-request')}`);
       });
-  }, [gateway, federationId, amount, address, t]);
+  }, [gateway, federationId, amount, address, balanceMsat, t]);
 
   return (
     <>
@@ -160,6 +167,15 @@ export const WithdrawCard = React.memo(function WithdrawCard({
             onClick={createWithdrawal}
           >
             {t('withdraw-card.card-header')}
+          </Button>
+          <Button
+            borderRadius='8px'
+            maxW='145px'
+            isDisabled={!address}
+            fontSize='sm'
+            onClick={sweepAll}
+          >
+            {t('withdraw-card.sweep-all')}
           </Button>
         </Stack>
       </GatewayCard>
