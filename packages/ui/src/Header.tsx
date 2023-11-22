@@ -3,11 +3,15 @@ import { Flex } from '@chakra-ui/react';
 
 export const Header = React.memo(function Header() {
   return (
-    <Flex width='100%' mb='32px' justifyContent={['center', 'flex-start']}>
+    <Flex
+      width='100%'
+      mb={['16px', '32px']}
+      justifyContent={['center', 'flex-start']}
+    >
       <Flex
         alignItems='center'
         justifyContent={['center', 'flex-start']}
-        gap='2'
+        gap={['0', '2']}
       >
         <>
           <svg

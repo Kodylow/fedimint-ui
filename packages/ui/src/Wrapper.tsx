@@ -20,8 +20,8 @@ export const Wrapper = memo(function Wrapper({
       alignItems='center'
     >
       <Box
-        maxW={size === 'lg' ? '1200px' : '960px'}
-        mt={10}
+        maxW={['960px', '1200px']}
+        mt={[1, 10]}
         mb={10}
         mr={[2, 4, 6, 10]}
         ml={[2, 4, 6, 10]}

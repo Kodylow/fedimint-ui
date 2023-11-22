@@ -1,5 +1,13 @@
 import React, { useMemo } from 'react';
-import { Box, Flex, Spinner, Heading, Text, Center } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Spinner,
+  Heading,
+  Text,
+  Center,
+  Button,
+} from '@chakra-ui/react';
 import {
   theme,
   Fonts,
@@ -25,10 +33,20 @@ export const App = React.memo(function App() {
   const content = useMemo(() => {
     if (state.appError) {
       return (
-        <Flex direction='column' gap={6}>
-          <Heading size='md'>{t('common.error')}</Heading>
-          <Text>{state.appError}</Text>
-        </Flex>
+        <Center h='100vh'>
+          <Box w='80%' maxW='md'>
+            <Flex direction='column' gap={6}>
+              <Heading size='md'>{t('common.error')}</Heading>
+              <Text>{state.appError}</Text>
+              <Button
+                width={['100%', '50%']}
+                onClick={() => window.location.reload()}
+              >
+                {t('common.reset')}
+              </Button>
+            </Flex>
+          </Box>
+        </Center>
       );
     }
 

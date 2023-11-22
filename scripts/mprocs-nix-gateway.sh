@@ -2,7 +2,7 @@
 
 set -eo pipefail
 
-eval "$(devimint env)"
+echo "$(devimint env)"
 
 echo Waiting for devimint to start up fedimint and gateway
 

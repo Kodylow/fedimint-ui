@@ -28,6 +28,8 @@ export const CopyInput: React.FC<CopyInputProps> = ({
     sm: '96px',
   }[size];
 
+  console.log('CopyInput', { value, size, buttonLeftIcon });
+
   return (
     <InputGroup width='100%' size={size}>
       <Input
