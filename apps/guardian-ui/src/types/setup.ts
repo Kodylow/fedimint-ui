@@ -3,6 +3,7 @@ import { MetaConfig, ModuleKind, Peer, BitcoinRpc, Network } from './api';
 export enum GuardianRole {
   Host = 'Host',
   Follower = 'Follower',
+  Solo = 'Solo',
 }
 
 export enum SetupProgress {
