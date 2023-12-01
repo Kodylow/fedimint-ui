@@ -75,12 +75,18 @@ export const GuardiansCard: React.FC<Props> = ({ status, config }) => {
               )}
             </StatusIndicator>
           ),
+
           lastContribution: federationStatus.last_contribution,
         });
       }
     }
+
     return peerDataArray;
   }, [status, config, t]);
+
+  if (!rows.length) {
+    return null;
+  }
 
   return (
     <Card flex='1'>
