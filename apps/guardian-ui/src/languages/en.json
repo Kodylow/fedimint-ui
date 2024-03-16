@@ -56,6 +56,12 @@
     },
     "config": {
       "label": "Federation Config",
+      "propose": {
+        "tab": "Propose Meta Updates",
+        "instructions": "Propose changes to the federation's metadata. This will be reviewed and voted on by the guardians."
+      },
+      "view": "View",
+      "review": "Review Proposals",
       "downloadBackup": {
         "button": "Download Backup",
         "warningTitle": "Warning",
