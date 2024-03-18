@@ -4,7 +4,6 @@ import {
   CardBody,
   CardHeader,
   Flex,
-  Text,
   Tabs,
   TabList,
   TabPanels,
@@ -14,7 +13,7 @@ import {
 import { githubLight } from '@uiw/codemirror-theme-github';
 import { json } from '@codemirror/lang-json';
 import CodeMirror from '@uiw/react-codemirror';
-import { ClientConfig } from '@fedimint/types';
+import { ClientConfig, ModuleKind } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
 import { MetaEditorTab } from './MetaEditorTab';
 
@@ -27,19 +26,26 @@ export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const metaModuleId = config
+    ? Object.entries(config.modules).find(
+        (m) => m[1].kind === ModuleKind.Meta
+      )?.[0]
+    : undefined;
+
   return config ? (
     <Card flex='1'>
-      <CardHeader></CardHeader>
+      <CardHeader>{t('federation-dashboard.config.label')}</CardHeader>
       <CardBody>
         <Tabs variant='soft-rounded' colorScheme='blue'>
           <Flex direction='column' gap='4'>
-            <Text size='lg' fontWeight='600'>
-              {t('federation-dashboard.config.label')}
-            </Text>
             <TabList justifySelf='center'>
               <Tab>{t('federation-dashboard.config.view')}</Tab>
-              <Tab>{t('federation-dashboard.config.propose.tab')}</Tab>
-              <Tab>{t('federation-dashboard.config.review')}</Tab>
+              {metaModuleId && (
+                <Tab>{t('federation-dashboard.config.propose.tab')}</Tab>
+              )}
+              {metaModuleId && (
+                <Tab>{t('federation-dashboard.config.review')}</Tab>
+              )}
             </TabList>
           </Flex>
           <TabPanels>
@@ -55,9 +61,13 @@ export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
               />
             </TabPanel>
             <TabPanel>
-              <MetaEditorTab meta={config.meta} />
+              {metaModuleId && (
+                <MetaEditorTab meta={config.meta} metaModuleId={metaModuleId} />
+              )}
             </TabPanel>
-            <TabPanel>{/* Content for Review Proposals */}</TabPanel>
+            {metaModuleId && (
+              <TabPanel>{/* Content for Review Proposals */}</TabPanel>
+            )}
           </TabPanels>
         </Tabs>
       </CardBody>

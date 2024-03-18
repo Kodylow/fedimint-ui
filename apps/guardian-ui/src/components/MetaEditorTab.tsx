@@ -8,9 +8,13 @@ const metaToFields = (meta: MetaConfig): [string, string][] => {
 
 interface MetaEditorTabProps {
   meta: MetaConfig;
+  metaModuleId: string;
 }
 
-export const MetaEditorTab: React.FC<MetaEditorTabProps> = ({ meta }) => {
+export const MetaEditorTab: React.FC<MetaEditorTabProps> = ({
+  meta,
+  metaModuleId,
+}) => {
   console.log('MetaEditorTab', meta);
   const [metaFields, setMetaFields] = useState<[string, string][]>(
     metaToFields(meta)
@@ -18,6 +22,7 @@ export const MetaEditorTab: React.FC<MetaEditorTabProps> = ({ meta }) => {
 
   return (
     <>
+      <p>metaModuleId: {metaModuleId}</p>
       <MetaFieldFormControl
         metaFields={metaFields}
         onChangeMetaFields={setMetaFields}
