@@ -15,7 +15,7 @@ import { json } from '@codemirror/lang-json';
 import CodeMirror from '@uiw/react-codemirror';
 import { ClientConfig, ModuleKind } from '@fedimint/types';
 import { useTranslation } from '@fedimint/utils';
-import { MetaEditorTab } from './MetaEditorTab';
+import { MetaEditor } from './MetaEditor';
 
 interface FederationConfigCardProps {
   config: ClientConfig | undefined;
@@ -62,7 +62,7 @@ export const FederationConfigCard: React.FC<FederationConfigCardProps> = ({
             </TabPanel>
             <TabPanel>
               {metaModuleId && (
-                <MetaEditorTab meta={config.meta} metaModuleId={metaModuleId} />
+                <MetaEditor meta={config.meta} metaModuleId={metaModuleId} />
               )}
             </TabPanel>
             {metaModuleId && (
