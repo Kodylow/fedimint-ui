@@ -1,7 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { Flex, useClipboard } from '@chakra-ui/react';
 import { useTranslation } from '@fedimint/utils';
-import { FederationInfo, IncomingContract, Sats } from '@fedimint/types';
+import {
+  FederationInfo,
+  CreateBolt11InvoiceForSelfPayload,
+  Sats,
+} from '@fedimint/types';
 import { WalletModalState } from '../WalletModal';
 import FederationSelector from '../FederationSelector';
 import { ApiContext } from '../../../ApiProvider';
@@ -28,31 +32,19 @@ const ReceiveLightning: React.FC<ReceiveLightningProps> = ({
   const { onCopy: onCopyInvoice } = useClipboard(invoice ?? '');
 
   const handleCreateInvoice = useCallback(async () => {
+    const payload: CreateBolt11InvoiceForSelfPayload = {
+      amount_msats: amount as number,
+      expiry_secs: Math.floor(Date.now() / 1000) + 3600,
+    };
     try {
-      const incomingContract: IncomingContract = {
-        commitment: 'test',
-        ciphertext: 'test',
-      };
-      const invoice = await gateway.createBolt11InvoiceV2({
-        federation_id: walletModalState.selectedFederation?.federation_id ?? '',
-        contract: incomingContract,
-        invoice_amount: amount as number,
-        description: { type: 'Direct', value: 'Test Lightning Invoice' },
-        expiry_time: Math.floor(Date.now() / 1000) + 3600, // Set expiry to 1 hour from now
-      });
+      const invoice = await gateway.createBolt11InvoiceForSelf(payload);
       setInvoice(invoice);
       setShowSelector(false);
       setShowInvoiceInfo(true);
     } catch (error) {
       console.error('Failed to create invoice:', error);
     }
-  }, [
-    gateway,
-    setShowSelector,
-    setShowInvoiceInfo,
-    walletModalState.selectedFederation?.federation_id,
-    amount,
-  ]);
+  }, [gateway, setShowSelector, setShowInvoiceInfo, amount]);
 
   if (showInvoiceInfo) {
     const lightningUri = `lightning:${invoice}`;

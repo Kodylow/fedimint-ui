@@ -17,6 +17,8 @@ import SendEcash from './send/SendEcash';
 // import SendLightning from './send/SendLightning';
 import SendOnchain from './send/SendOnchain';
 import { WalletActionSelector } from './WalletActionSelector';
+import ReceiveLightning from './receive/ReceiveLightning';
+import SendLightning from './send/SendLightning';
 
 export enum WalletModalAction {
   Receive = 'receive',
@@ -24,7 +26,7 @@ export enum WalletModalAction {
 }
 export enum WalletModalType {
   Ecash = 'ecash',
-  // Lightning = 'lightning',
+  Lightning = 'lightning',
   Onchain = 'onchain',
 }
 
@@ -71,12 +73,12 @@ export const WalletModal: React.FC<WalletModalProps> = ({
     const components = {
       [WalletModalAction.Receive]: {
         [WalletModalType.Ecash]: ReceiveEcash,
-        // [WalletModalType.Lightning]: ReceiveLightning,
+        [WalletModalType.Lightning]: ReceiveLightning,
         [WalletModalType.Onchain]: ReceiveOnchain,
       },
       [WalletModalAction.Send]: {
         [WalletModalType.Ecash]: SendEcash,
-        // [WalletModalType.Lightning]: SendLightning,
+        [WalletModalType.Lightning]: SendLightning,
         [WalletModalType.Onchain]: SendOnchain,
       },
     };

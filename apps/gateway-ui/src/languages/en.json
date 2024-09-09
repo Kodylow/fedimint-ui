@@ -12,7 +12,8 @@
     "copied": "Copied!",
     "uri": "URI",
     "view-on-mempool": "View on Mempool",
-    "ecash": "Ecash"
+    "ecash": "Ecash",
+    "invoice": "Invoice"
   },
   "admin": {
     "fetch-info-modal-text": "Checking federation details..."

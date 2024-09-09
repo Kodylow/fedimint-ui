@@ -42,22 +42,11 @@ export interface FederationInfo {
   config: JsonClientConfig;
 }
 
-export interface CreateBolt11InvoiceV2Payload {
-  federation_id: string;
-  contract: IncomingContract;
-  invoice_amount: number;
-  description: Bolt11InvoiceDescription;
-  expiry_time: number;
+export interface CreateBolt11InvoiceForSelfPayload {
+  amount_msats: number;
+  expiry_secs: number;
+  description?: string;
 }
-
-export interface IncomingContract {
-  commitment: string;
-  ciphertext: string;
-}
-
-export type Bolt11InvoiceDescription =
-  | { type: 'Direct'; value: string }
-  | { type: 'Hash'; value: string };
 
 export interface GatewayInfo {
   api: string;

@@ -3,7 +3,7 @@ import {
   FederationInfo,
   ChannelInfo,
   GatewayFedConfig,
-  CreateBolt11InvoiceV2Payload,
+  CreateBolt11InvoiceForSelfPayload,
   OpenChannelPayload,
   RoutingInfo,
   PayInvoicePayload,
@@ -201,11 +201,14 @@ export class GatewayApi {
     }
   };
 
-  createBolt11InvoiceV2 = async (
-    payload: CreateBolt11InvoiceV2Payload
+  createBolt11InvoiceForSelf = async (
+    payload: CreateBolt11InvoiceForSelfPayload
   ): Promise<string> => {
     try {
-      const res: Response = await this.post('create_bolt11_invoice', payload);
+      const res: Response = await this.post(
+        'create_bolt11_invoice_for_self',
+        payload
+      );
 
       if (res.ok) {
         const invoice: string = await res.json();
@@ -214,9 +217,9 @@ export class GatewayApi {
 
       throw responseToError(res);
     } catch (error) {
-      console.error('Error creating bolt11 invoice v2', error);
+      console.error('Error creating bolt11 invoice for self', error);
       return Promise.reject({
-        message: 'Error creating bolt11 invoice v2',
+        message: 'Error creating bolt11 invoice for self',
         error,
       });
     }
