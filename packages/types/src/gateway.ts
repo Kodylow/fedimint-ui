@@ -48,6 +48,10 @@ export interface CreateBolt11InvoiceForSelfPayload {
   description?: string;
 }
 
+export interface PayBolt11InvoiceSelfPayload {
+  invoice: string;
+}
+
 export interface GatewayInfo {
   api: string;
   block_height: number;
